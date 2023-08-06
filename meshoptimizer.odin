@@ -48,7 +48,7 @@ Bounds :: struct {
 
 
 /***** meshoptimizer *****/
-foreign import meshoptimizer "meshoptimizer.lib"
+foreign import meshoptimizer "external/meshoptimizer.lib"
 
 /* Procedures */
 @(link_prefix = "meshopt_")
