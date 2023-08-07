@@ -97,7 +97,7 @@ foreign meshoptimizer {
 	encodeFilterOct :: proc(destination: rawptr, count: uint, stride: uint, bits: int, data: ^_c.float) ---
 	encodeFilterQuat :: proc(destination: rawptr, count: uint, stride: uint, bits: int, data: ^_c.float) ---
 	encodeFilterExp :: proc(destination: rawptr, count: uint, stride: uint, bits: int, data: ^_c.float) ---
-	simplify :: proc(destination: ^_c.uint, indices: ^_c.uint, index_count: uint, vertex_positions: ^_c.float, vertex_count: uint, vertex_positions_stride: uint, target_index_count: uint, target_error: _c.float, result_error: ^_c.float) -> uint ---
+	simplify :: proc(destination: ^_c.uint, indices: ^_c.uint, index_count: uint, vertex_positions: ^_c.float, vertex_count: uint, vertex_positions_stride: uint, target_index_count: uint, target_error: _c.float, options: _c.uint, result_error: ^_c.float) -> uint ---
 	simplifySloppy :: proc(destination: ^_c.uint, indices: ^_c.uint, index_count: uint, vertex_positions: ^_c.float, vertex_count: uint, vertex_positions_stride: uint, target_index_count: uint, target_error: _c.float, result_error: ^_c.float) -> uint ---
 	simplifyPoints :: proc(destination: ^_c.uint, vertex_positions: ^_c.float, vertex_count: uint, vertex_positions_stride: uint, target_vertex_count: uint) -> uint ---
 	simplifyScale :: proc(vertex_positions: ^_c.float, vertex_count: uint, vertex_positions_stride: uint) -> _c.float ---
