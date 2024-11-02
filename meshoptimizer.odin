@@ -2,9 +2,26 @@ package meshopt
 
 import _c "core:c"
 
-/* Macros */
 
-MESHOPTIMIZER_VERSION :: 170
+MESHOPTIMIZER_VERSION :: 220
+
+EncodeExpMode :: enum {
+	/* When encoding exponents, use separate values for each component (maximum quality) */
+	meshopt_EncodeExpSeparate,
+	/* When encoding exponents, use shared value for all components of each vector (better compression) */
+	meshopt_EncodeExpSharedVector,
+	/* When encoding exponents, use shared value for each component of all vectors (best compression) */
+	meshopt_EncodeExpSharedComponent,
+	/* Experimental: When encoding exponents, use separate values for each component, but clamp to 0 (good quality if very small values are not important) */
+	meshopt_EncodeExpClamped,
+}
+
+SimplifyLockBorder :: 1
+SimplifySparse :: 2
+SimplifyErrorAbsolute :: 4
+SimplifyPrune :: 8
+
+
 Stream :: struct {
 	data:   rawptr,
 	size:   uint,
@@ -97,6 +114,7 @@ foreign meshoptimizer {
 	encodeFilterOct :: proc(destination: rawptr, count: uint, stride: uint, bits: int, data: ^_c.float) ---
 	encodeFilterQuat :: proc(destination: rawptr, count: uint, stride: uint, bits: int, data: ^_c.float) ---
 	encodeFilterExp :: proc(destination: rawptr, count: uint, stride: uint, bits: int, data: ^_c.float) ---
+	simplifyWithAttributes :: proc(destination: rawptr, indices: ^_c.uint, index_count: uint, vertex_positions: ^_c.float, vertex_count: uint, vertex_positions_stride: uint, vertex_attributes: ^_c.float, vertex_attributes_stride: uint, attribute_weights: ^_c.float, attribute_count: uint, vertex_lock: ^u8, target_index_count: uint, target_error: f32, options: _c.uint, result_error: ^_c.float)
 	simplify :: proc(destination: ^_c.uint, indices: ^_c.uint, index_count: uint, vertex_positions: ^_c.float, vertex_count: uint, vertex_positions_stride: uint, target_index_count: uint, target_error: _c.float, options: _c.uint, result_error: ^_c.float) -> uint ---
 	simplifySloppy :: proc(destination: ^_c.uint, indices: ^_c.uint, index_count: uint, vertex_positions: ^_c.float, vertex_count: uint, vertex_positions_stride: uint, target_index_count: uint, target_error: _c.float, result_error: ^_c.float) -> uint ---
 	simplifyPoints :: proc(destination: ^_c.uint, vertex_positions: ^_c.float, vertex_count: uint, vertex_positions_stride: uint, target_vertex_count: uint) -> uint ---
